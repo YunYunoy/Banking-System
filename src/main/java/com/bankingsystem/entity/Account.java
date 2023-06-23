@@ -2,6 +2,7 @@ package com.bankingsystem.entity;
 
 
 import com.bankingsystem.enums.AccountStatus;
+import com.bankingsystem.enums.AccountType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,6 +44,10 @@ public class Account {
     @Column(name = "account_status")
     private AccountStatus accountStatus;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_type")
+    private AccountType accountType;
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
@@ -56,7 +61,5 @@ public class Account {
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<DebitCard> debitCard;
-
-
 
 }

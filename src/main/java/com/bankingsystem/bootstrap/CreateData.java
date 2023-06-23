@@ -5,6 +5,7 @@ import com.bankingsystem.entity.DebitCard;
 import com.bankingsystem.entity.Transaction;
 import com.bankingsystem.entity.User;
 import com.bankingsystem.enums.AccountStatus;
+import com.bankingsystem.enums.AccountType;
 import com.bankingsystem.enums.TransactionType;
 import com.bankingsystem.repository.AccountRepository;
 import com.bankingsystem.repository.DebitCardRepository;
@@ -48,8 +49,9 @@ public class CreateData implements CommandLineRunner {
                 .accountNumber("123456789")
                 .balance(BigDecimal.valueOf(1000))
                 .lastInterestCalculation(new java.util.Date())
-                .interestRate(0.05)
+                .interestRate(0.001)
                 .accountStatus(AccountStatus.ACTIVE)
+                .accountType(AccountType.CHECKING)
                 .transactions(new ArrayList<>())
                 .debitCard(new ArrayList<>())
                 .build();
