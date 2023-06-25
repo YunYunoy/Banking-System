@@ -27,7 +27,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "account_number", unique = true)
+    @Column(name = "account_number", unique = true, length = 26)
     private String accountNumber;
 
     @Column(name = "balance")
@@ -47,7 +47,6 @@ public class Account {
     @Enumerated(EnumType.STRING)
     @Column(name = "account_type")
     private AccountType accountType;
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)

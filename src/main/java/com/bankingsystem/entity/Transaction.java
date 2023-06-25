@@ -27,6 +27,8 @@ public class Transaction {
     @Column(name = "amount")
     private BigDecimal amount;
 
+    private String receiverAccountNumber;
+
     @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
 
@@ -41,7 +43,6 @@ public class Transaction {
 
     @Column(name = "exchange_rate")
     private BigDecimal exchangeRate;
-
 
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type")

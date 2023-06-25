@@ -2,9 +2,7 @@ package com.bankingsystem.enums;
 
 public enum AccountType {
     SAVINGS("Savings"),
-    CHECKING("Checking"),
-    CREDIT("Credit"),
-    LOAN("Loan");
+    CHECKING("Checking");
 
     private final String type;
 

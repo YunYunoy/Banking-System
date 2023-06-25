@@ -1,6 +1,7 @@
 package com.bankingsystem.enums;
 
 public enum AccountStatus {
+
     ACTIVE("Active"),
     CLOSED("Closed"),
     FROZEN("Frozen"),
