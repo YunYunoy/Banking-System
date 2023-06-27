@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Table(name = "debit_cards")
@@ -30,7 +29,6 @@ public class DebitCard {
     private String cvv;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
     private Account account;
 
     @Column(name = "is_active")

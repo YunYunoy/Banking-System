@@ -1,25 +1,21 @@
 package com.bankingsystem.bootstrap;
 
-import com.bankingsystem.entity.Account;
-import com.bankingsystem.entity.DebitCard;
-import com.bankingsystem.entity.Transaction;
-import com.bankingsystem.entity.User;
+import com.bankingsystem.entity.*;
 import com.bankingsystem.enums.AccountStatus;
 import com.bankingsystem.enums.AccountType;
 import com.bankingsystem.enums.TransactionType;
-import com.bankingsystem.repository.AccountRepository;
-import com.bankingsystem.repository.DebitCardRepository;
-import com.bankingsystem.repository.TransactionRepository;
-import com.bankingsystem.repository.UserRepository;
+import com.bankingsystem.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.UUID;
 
 @Component
 @AllArgsConstructor
@@ -30,6 +26,8 @@ public class CreateData implements CommandLineRunner {
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
     private final DebitCardRepository debitCardRepository;
+    private final AuthorityRepository authorityRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -42,6 +40,11 @@ public class CreateData implements CommandLineRunner {
         userRepository.deleteAll();
         transactionRepository.deleteAll();
         debitCardRepository.deleteAll();
+        authorityRepository.deleteAll();
+
+        // Create authorities
+        Authority admin = authorityRepository.save(Authority.builder().role("ROLE_ADMIN").build());
+        Authority userRole = authorityRepository.save(Authority.builder().role("ROLE_USER").build());
 
         // Create an Account
         Account account = Account.builder()
@@ -70,6 +73,8 @@ public class CreateData implements CommandLineRunner {
         // Create a User
         User user = User.builder()
                 .username("neuron")
+                .password(passwordEncoder.encode("neuron"))
+                .authority(userRole)
                 .email("neuron@example.com")
                 .phoneNumber("123456789")
                 .street("123 Main St")
@@ -82,6 +87,8 @@ public class CreateData implements CommandLineRunner {
         // Create a User no. 2
         User user2 = User.builder()
                 .username("goblin")
+                .password(passwordEncoder.encode("goblin"))
+                .authority(admin)
                 .email("goblin@example.com")
                 .phoneNumber("987654321")
                 .street("321 Main St")

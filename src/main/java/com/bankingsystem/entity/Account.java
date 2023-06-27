@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,7 +15,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "accounts")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "TYPE", length = 4)
 @Data
 @Builder
 @NoArgsConstructor
@@ -49,16 +49,12 @@ public class Account {
     private AccountType accountType;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Transaction> transactions;
 
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<DebitCard> debitCard;
 
 }

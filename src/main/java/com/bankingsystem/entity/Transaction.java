@@ -49,7 +49,6 @@ public class Transaction {
     private TransactionType transactionType;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
     private Account account;
 
 }

@@ -5,20 +5,12 @@ import com.bankingsystem.entity.Transaction;
 import com.bankingsystem.entity.User;
 import com.bankingsystem.enums.AccountStatus;
 import com.bankingsystem.enums.AccountType;
-import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Builder;
-import lombok.Data;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import org.hibernate.annotations.Cascade;
 
 import java.math.BigDecimal;
 import java.util.Date;

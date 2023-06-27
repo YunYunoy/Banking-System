@@ -75,59 +75,6 @@ public class TransactionServiceImpl implements TransactionService{
         transactionRepository.save(targetTransaction);
     }
 
-    @Override
-    public void depositFunds(Long accountId, BigDecimal amount) {
-        Account account = getAccountById(accountId);
-
-        // Perform additional checks and validations for the deposit
-
-        // Update the account balance
-        BigDecimal newBalance = account.getBalance().add(amount);
-        account.setBalance(newBalance);
-        accountRepository.save(account);
-
-        // Create a transaction record for the deposit
-        Transaction depositTransaction = Transaction.builder()
-                .amount(amount)
-                .receiverAccountNumber(account.getAccountNumber())
-                .transactionDate(LocalDateTime.now())
-                .transactionType(TransactionType.CREDIT)
-                .currency("USD")
-                .isSuccessful(true)
-                .build();
-
-        depositTransaction.setAccount(account);
-        transactionRepository.save(depositTransaction);
-    }
-
-    @Override
-    public void withdrawFunds(Long accountId, BigDecimal amount) {
-        Account account = getAccountById(accountId);
-
-        // Perform additional checks and validations for the withdrawal, such as verifying sufficient balance, handling withdrawal limits, etc.
-
-        // Update the account balance
-        BigDecimal newBalance = account.getBalance().subtract(amount);
-        account.setBalance(newBalance);
-        accountRepository.save(account);
-
-        // Create a transaction record for the withdrawal
-        Transaction withdrawalTransaction = Transaction.builder()
-                .amount(amount)
-                .receiverAccountNumber(account.getAccountNumber())
-                .transactionDate(LocalDateTime.now())
-                .transactionType(TransactionType.DEBIT)
-                .currency("USD")
-                .isSuccessful(true)
-                .build();
-
-        withdrawalTransaction.setAccount(account);
-        transactionRepository.save(withdrawalTransaction);
-    }
-
-
-
-
     private Account getAccountById(Long accountId) {
         return accountRepository.findById(accountId)
                 .orElseThrow(() -> new NotFoundException("Account not found with ID: " + accountId));
